@@ -3,10 +3,11 @@ const app = express(); // obtain the "app" object
 const HTTP_PORT = process.env.PORT || 8080; // assign a port
 const path = require('path'); // adding the path 
 const dataserver = require(__dirname +'/store-service.js');
-// start the server on the port and output a confirmation to the console
-app.listen(HTTP_PORT, () => console.log(`server listening on: http://localhost:${HTTP_PORT}`));
 app.use(express.static('public'));
 
+onHttpStart = () => {
+    console.log('Express http server listening on port ' + HTTP_PORT);
+}
 // To send request of redirect default page
 app.get('/',(req,res)=>{
 
@@ -32,7 +33,7 @@ app.get('/about',(req,res)=>{
 
 
 // To send categories if necessary
-app.get('/categotries',function(req,res){
+app.get('/categories',function(req,res){
     dataserver.getAllCategories()
     .then((data)=>{
         console.log("All Items Json");
@@ -64,7 +65,7 @@ app.use((req, res) => {
 
 
 //initialize server
-dataservice.initialize()
+dataserver.initialize()
     .then(() => {
         console.log("Server intialize");
         app.listen(HTTP_PORT, onHttpStart);  //start the server 
