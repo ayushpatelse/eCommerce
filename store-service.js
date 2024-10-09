@@ -23,7 +23,8 @@ exports.initialize = () => {
                 categories = JSON.parse(data);
             }
         })
-        resolve();
+        
+         resolve();
     })
 } 
 
@@ -47,3 +48,14 @@ exports.getAllCategories = () => {
         }
     });
 };
+
+exports.getAllItems = () => {
+    return new Promise((resolve, reject) => {
+        if (items.length === 0) {
+            reject('no results returned');
+        } else {
+            resolve(items);
+        }
+    });
+};
+

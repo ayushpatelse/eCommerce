@@ -50,7 +50,7 @@ app.get('/items',function(req,res){
     dataserver.getAllItems()
     .then((data)=>{
         console.log("All Items Json");
-        res.json(err);
+        res.json(data);
     })
     .catch((err)=>{
         console.log(err);
@@ -67,9 +67,11 @@ app.use((req, res) => {
 //initialize server
 dataserver.initialize()
     .then(() => {
-        console.log("Server intialize");
-        app.listen(HTTP_PORT, onHttpStart);  //start the server 
+        console.log("Server initialized");
+        app.listen(HTTP_PORT, () => {
+            console.log(`Express http server listening on port http://localhost:${HTTP_PORT}`);
+        });
     })
-    .catch(err => {
+    .catch((err) => {
         console.log(err);
-    })
+    });
